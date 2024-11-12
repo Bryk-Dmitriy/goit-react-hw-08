@@ -39,8 +39,8 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
     >
       {() => (
-        <div className={css.contactForm}>
-          <Form>
+        <div className={css.contactFormWrapper}>
+          <Form className={css.contactForm}>
             <label htmlFor="name" className={css.formLabel}>
               Name
             </label>

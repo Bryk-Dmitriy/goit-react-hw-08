@@ -1,3 +1,18 @@
-.searchInput{
-    width: 300px;
+.searchBoxWrapper {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.searchBoxText {
+  font-size: 18px;
+}
+
+.searchInput {
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid rgb(157, 157, 157);
 }

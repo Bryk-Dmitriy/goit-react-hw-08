@@ -2,3 +2,16 @@
   display: flex;
   gap: 15px;
 }
+
+.navLinks {
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.navLinks:hover {
+  color: rgb(190, 185, 103);
+}
+
+.active {
+  color: rgb(190, 185, 103);
+}

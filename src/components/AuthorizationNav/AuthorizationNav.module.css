@@ -1,0 +1,14 @@
+.authNav {
+  display: flex;
+  gap: 15px;
+}
+
+.authLinks {
+  font-size: 25px;
+  text-decoration: none;
+  color: rgb(190, 185, 103);
+}
+
+.authLinks:hover {
+  color: rgb(136, 134, 84);
+}

@@ -16,13 +16,11 @@ const LoginPage = () => {
     password: "",
   };
 
-  const registerSchema = Yup.object({
+  const loginSchema = Yup.object({
     email: Yup.string()
       .email("Please enter a valid email address")
       .required("Required"),
-    password: Yup.string()
-      .min(7, "Too Short! Password must be at least 7 characters")
-      .required("Required"),
+    password: Yup.string().required("Required"),
   });
 
   useEffect(() => {
@@ -40,12 +38,12 @@ const LoginPage = () => {
     <div>
       <Formik
         initialValues={INITIAL_VALUES}
-        validationSchema={registerSchema}
+        validationSchema={loginSchema}
         onSubmit={handleSubmit}
       >
         {() => (
-          <div className={css.contactForm}>
-            <Form>
+          <div className={css.LoginFormWrapper}>
+            <Form className={css.LoginForm}>
               <label htmlFor="email" className={css.formLabel}>
                 Email
               </label>

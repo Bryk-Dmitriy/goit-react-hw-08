@@ -50,8 +50,8 @@ const RegistrationPage = () => {
         onSubmit={handleSubmit}
       >
         {() => (
-          <div className={css.contactForm}>
-            <Form>
+          <div className={css.RegistrationFormWrapper}>
+            <Form className={css.RegistrationForm}>
               <label htmlFor="name" className={css.formLabel}>
                 Name
               </label>

@@ -11,8 +11,8 @@ export default function SearchBox() {
   };
 
   return (
-    <div>
-      <p>Find contacts by name</p>
+    <div className={css.searchBoxWrapper}>
+      <p className={css.searchBoxText}>Find contacts by name</p>
       <input
         className={css.searchInput}
         type="text"
