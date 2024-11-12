@@ -1,30 +1,38 @@
 import { useDispatch, useSelector } from "react-redux";
-import ContactForm from "../components/ContactForm/ContactForm";
-import ContactList from "../components/ContactList/ContactList";
-import SearchBox from "../components/SearchBox/SearchBox";
-import { useEffect } from "react";
-import { fetchContacts } from "../redux/contactsOps";
-import Error from "./Error/Error";
+import { useEffect, lazy } from "react";
+import { Route, Routes } from "react-router-dom";
+import { getCurrentUser } from "../redux/auth/operations";
+import { selectUserIsRefreshing } from "../redux/auth/selectors";
+import Layout from "./Layout/Layout";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+
+const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+const LoginPage = lazy(() => import("../pages/LoginPage/LoginPage"));
+const RegistrationPage = lazy(() =>
+  import("../pages/RegistrationPage/RegistrationPage")
+);
+const ContactsPage = lazy(() => import("../pages/ContactsPage/ContactsPage"));
 
 export default function App() {
   const dispatch = useDispatch();
-
-  const error = useSelector((state) => state.contacts.error);
-
+  const isRefreshing = useSelector(selectUserIsRefreshing);
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(getCurrentUser());
   }, [dispatch]);
 
-  if (error) {
-    return <Error />;
-  }
+  if (isRefreshing) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="registration" element={<RegistrationPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route
+          path="/contacts"
+          element={<PrivateRoute component={<ContactsPage />} />}
+        />
+      </Routes>
+    </Layout>
   );
 }

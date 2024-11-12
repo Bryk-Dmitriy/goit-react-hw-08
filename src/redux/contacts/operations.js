@@ -1,13 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import { authInstance, setToken } from "../auth/operations";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
     try {
-      const response = await axios.get(
-        "https://6727f1d2270bd0b97553f2aa.mockapi.io/contacts"
-      );
+      setToken(token);
+      const response = await authInstance.get("/contacts");
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -18,11 +20,11 @@ export const fetchContacts = createAsyncThunk(
 export const addContact = createAsyncThunk(
   "contacts/addContact",
   async (contact, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
     try {
-      const response = await axios.post(
-        "https://6727f1d2270bd0b97553f2aa.mockapi.io/contacts",
-        contact
-      );
+      setToken(token);
+      const response = await authInstance.post("/contacts", contact);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -33,10 +35,11 @@ export const addContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   "contact/deleteContact",
   async (contactID, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
     try {
-      await axios.delete(
-        `https://6727f1d2270bd0b97553f2aa.mockapi.io/contacts/${contactID}`
-      );
+      setToken(token);
+      await authInstance.delete(`/contacts/${contactID}`);
       return contactID;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
