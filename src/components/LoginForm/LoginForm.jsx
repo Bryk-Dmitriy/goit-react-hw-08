@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { apiUserLogin } from "../../redux/auth/operations";
+import { login } from "../../redux/auth/operations";
 import { selectUserIsLoggedIn } from "../../redux/auth/selectors";
 import * as Yup from "yup";
 import css from "./LoginForm.module.css";
@@ -30,7 +30,7 @@ const LoginForm = () => {
   }, [isLoggedIn, navigate]);
 
   const handleSubmit = (values, actions) => {
-    dispatch(apiUserLogin(values));
+    dispatch(login(values));
     actions.resetForm();
   };
 

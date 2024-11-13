@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { apiUserRegister } from "../../redux/auth/operations";
+import { register } from "../../redux/auth/operations";
 import { selectUserIsLoggedIn } from "../../redux/auth/selectors";
 import * as Yup from "yup";
 import css from "./RegistrationForm.module.css";
@@ -38,7 +38,7 @@ const RegistrationForm = () => {
   }, [isLoggedIn, navigate]);
 
   const handleSubmit = (values, actions) => {
-    dispatch(apiUserRegister(values));
+    dispatch(register(values));
     actions.resetForm();
   };
 
