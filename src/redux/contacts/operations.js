@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { authInstance, setToken } from "../auth/operations";
+import { authInstance, setAuthHeader } from "../auth/operations";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
@@ -8,7 +8,7 @@ export const fetchContacts = createAsyncThunk(
     const state = thunkAPI.getState();
     const token = state.auth.token;
     try {
-      setToken(token);
+      setAuthHeader(token);
       const response = await authInstance.get("/contacts");
       return response.data;
     } catch (error) {
@@ -23,7 +23,7 @@ export const addContact = createAsyncThunk(
     const state = thunkAPI.getState();
     const token = state.auth.token;
     try {
-      setToken(token);
+      setAuthHeader(token);
       const response = await authInstance.post("/contacts", contact);
       return response.data;
     } catch (error) {
@@ -38,7 +38,7 @@ export const deleteContact = createAsyncThunk(
     const state = thunkAPI.getState();
     const token = state.auth.token;
     try {
-      setToken(token);
+      setAuthHeader(token);
       await authInstance.delete(`/contacts/${contactID}`);
       return contactID;
     } catch (error) {

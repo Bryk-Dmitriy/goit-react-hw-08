@@ -3,16 +3,13 @@ import axios from "axios";
 
 export const authInstance = axios.create({
   baseURL: "https://connections-api.goit.global/",
-  // headers: {
-  //     "Authorization": "Bearer [token]"
-  // }
 });
 
-export const setToken = (token) => {
+export const setAuthHeader = (token) => {
   authInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-export const clearToken = () => {
+export const clearAuthHeader = () => {
   authInstance.defaults.headers.common.Authorization = "";
 };
 
@@ -22,7 +19,7 @@ export const apiUserRegister = createAsyncThunk(
     try {
       console.log(profileData);
       const { data } = await authInstance.post("/users/signup", profileData);
-      setToken(data.token);
+      setAuthHeader(data.token);
       console.log(data);
       return data;
     } catch (error) {
@@ -36,7 +33,7 @@ export const apiUserLogin = createAsyncThunk(
   async (profileData, thunkApi) => {
     try {
       const { data } = await authInstance.post("/users/login", profileData);
-      setToken(data.token);
+      setAuthHeader(data.token);
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -53,7 +50,7 @@ export const getCurrentUser = createAsyncThunk(
       return thunkApi.rejectWithValue("No token to refresh");
     }
     try {
-      setToken(token);
+      setAuthHeader(token);
       const { data } = await authInstance.get("/users/current");
       return data;
     } catch (error) {
@@ -67,7 +64,7 @@ export const apiLogout = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const { data } = await authInstance.post("/users/logout");
-      clearToken();
+      clearAuthHeader();
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
